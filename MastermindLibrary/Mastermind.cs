@@ -48,17 +48,20 @@ namespace MastermindLibrary
             }
         }
 
+        public int CountCorrectColours()
+        {
+            return secret.Intersect(guess).Count();
+        }
+
         // Private methods
         private List<string> StringToList(string s)
         {
-            return s.Replace("[", "").Replace("]", "").Split(',').Select(s => s.Trim()).ToList();
+            return s.Replace("[", "").Replace("]", "").Split(',').Select(s => s.Trim().ToLower()).ToList();
         }
 
         private string ListToString(List<string> l)
         {
             return "[" + string.Join(",", l) + "]";
         }
-
-
     }
 }
