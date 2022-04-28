@@ -25,6 +25,17 @@ namespace MastermindLibrary
             set => guess = StringToList(value);
         }
 
+        // Private methods
+        private List<string> StringToList(string s)
+        {
+            return s.Replace("[", "").Replace("]", "").Split(',').Select(s => s.Trim().ToLower()).ToList();
+        }
+
+        private string ListToString(List<string> l)
+        {
+            return "[" + string.Join(",", l) + "]";
+        }
+
         // Public methods
         public string SetSecret(string newSecret)
         {
@@ -52,16 +63,10 @@ namespace MastermindLibrary
         {
             return secret.Intersect(guess).Count();
         }
-
-        // Private methods
-        private List<string> StringToList(string s)
+        public int CountWellPlacedColours()
         {
-            return s.Replace("[", "").Replace("]", "").Split(',').Select(s => s.Trim().ToLower()).ToList();
+            return guess.Where(c => secret.IndexOf(c) == guess.IndexOf(c)).Count();
         }
-
-        private string ListToString(List<string> l)
-        {
-            return "[" + string.Join(",", l) + "]";
-        }
+        
     }
 }

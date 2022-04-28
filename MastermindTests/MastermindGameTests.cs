@@ -65,12 +65,26 @@ namespace MastermindGame.Tests
         [DataRow("[yellow, blue, green]", "[red]", 0)]
         [DataRow("[yellow, blue, green]", "[blue, yellow]", 2)]
         [DataRow("[yellow, blue, green]", "[blue, green, grey, brown, white]", 2)]
-        public void Count_Correct_Colours(string secret, string guess, int expectedResult)
+        public void Return_Correct_Colours(string secret, string guess, int expectedResult)
         {
             _mastermind.SetSecret(secret);
             _mastermind.SetGuess(guess);
             int result = _mastermind.CountCorrectColours();
             Assert.AreEqual(result,expectedResult);
+        }
+
+        [DataTestMethod]
+        [DataRow("[red, white, black]", "[yellow, blue]", 0)]
+        [DataRow("[red, white, black]", "[red, white, black]", 3)]
+        [DataRow("[red, white, black]", "[black, white, red]", 1)]
+        [DataRow("[red, white, black]", "[brown, blue, black]", 1)]
+        [DataRow("[red, white, black]", "[red, white]", 2)]
+        public void Return_Well_PLaced_Colours(string secret, string guess, int expectedResult)
+        {
+            _mastermind.SetSecret(secret);
+            _mastermind.SetGuess(guess);
+            int result = _mastermind.CountWellPlacedColours();
+            Assert.AreEqual(result, expectedResult);
         }
     }
 }

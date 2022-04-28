@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MastermindApp", "MastermindApp\MastermindApp.csproj", "{646A9784-5548-4874-957A-298E3666D79D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MastermindApp", "MastermindApp\MastermindApp.csproj", "{646A9784-5548-4874-957A-298E3666D79D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MastermindLibrary", "MastermindLibrary\MastermindLibrary.csproj", "{4E63864B-2B33-482B-9A24-3095A56064D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MastermindLibrary", "MastermindLibrary\MastermindLibrary.csproj", "{4E63864B-2B33-482B-9A24-3095A56064D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MastermindTests", "MastermindTests\MastermindTests.csproj", "{FFCA6269-48CD-4852-8800-394C1D97B6F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MastermindTests", "MastermindTests\MastermindTests.csproj", "{FFCA6269-48CD-4852-8800-394C1D97B6F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
