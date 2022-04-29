@@ -7,6 +7,21 @@ namespace MastermindGame.Library
 {
     public class Mastermind
     {
+        private List<string> availableColours = new List<string>()
+        {
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "blue",
+            "purple",
+            "pink",
+            "brown",
+            "white",
+            "black",
+            "gray",
+        };
+
         // Fields
         // Guess is a nested list because player can introduce multiple guesses in the same try
         private List<List<string>> _guess;
@@ -47,6 +62,16 @@ namespace MastermindGame.Library
             }
         }
 
+        public void SetRandomSecret()
+        {
+            Random random = new Random();
+            int numberOfColours = random.Next(1, 5);
+            for (int i = 0; i < numberOfColours; i++)
+            {
+                _secret.Add(availableColours.ElementAt(random.Next(0, availableColours.Count - 1)));
+            }
+        }
+
         private string ListToString(List<string> l) => "[" + string.Join(",", l) + "]";
 
         private List<string> StringToList(string s) => s.Replace("[", "").Replace("]", "").Split(',').Select(s => s.Trim().ToLower()).ToList();
@@ -65,7 +90,6 @@ namespace MastermindGame.Library
         public bool SetSecret(string newSecret)
         {
             if (String.IsNullOrEmpty(newSecret.Trim().Replace("[", "").Replace("]", "").Trim()))
-                //return "Secret can't be empty!";
                 return false;
             else
             {
@@ -74,20 +98,19 @@ namespace MastermindGame.Library
             }
         }
 
-        public bool SetGuess(string newGuess)
+        public string SetGuess(string newGuess)
         {
             if (String.IsNullOrEmpty(newGuess.Trim().Replace("[", "").Replace("]", "").Trim()))
-                //return "Guess can't be empty!";
-                return false;
+                return "Empty";
             else
             {
                 MatchCollection matches = Regex.Matches(newGuess.Replace(" ", ""), @"(?:\[(?:\w,?)+\],?)");
                 if (string.Join(',', matches.Select(m => m.Value.TrimEnd(',')).ToList()) != newGuess.Replace(" ", ""))
-                    return false;
+                    return "InvalidFormat";
                 else
                 {
                     Guess = newGuess;
-                    return true;
+                    return "Correct";
                 }
             }
         }
@@ -95,7 +118,7 @@ namespace MastermindGame.Library
         public int CountWellPlacedColours()
         {
             int count = 0;
-            foreach(List<string> g in _guess)
+            foreach (List<string> g in _guess)
             {
                 count += g.Where(c => _secret.IndexOf(c) == g.IndexOf(c)).Count();
             }
