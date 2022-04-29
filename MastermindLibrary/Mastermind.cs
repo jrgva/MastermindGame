@@ -7,33 +7,42 @@ namespace MastermindLibrary
     public class Mastermind
     {
         // Fields
-        private List<string> guess;
-        private List<string> secret;
+        // Guess is a nested list because player can introduce multiple guesses in the same try
+        private List<List<string>> _guess;
+        private List<string> _secret;
 
         // Constructors
         public Mastermind() { }
 
         // Properties
+        // The public properties are always strings
         public string Secret 
         {
-            get => ListToString(secret);
-            set => secret = StringToList(value);
+            get => ListToString(_secret);
+            set => _secret = value.Replace("[", "").Replace("]", "").Split(',').Select(s => s.Trim().ToLower()).ToList();
         }
         public string Guess
         {
-            get => ListToString(guess);
-            set => guess = StringToList(value);
-        }
-
-        // Private methods
-        private List<string> StringToList(string s)
-        {
-            return s.Replace("[", "").Replace("]", "").Split(',').Select(s => s.Trim().ToLower()).ToList();
+            get
+            {
+                List<string> guesses = new List<string>();
+                foreach(var g in _guess)
+                {
+                    guesses.Add(string)
+                }
+                return
+            }
+            set => _guess = StringToList(value);
         }
 
         private string ListToString(List<string> l)
         {
             return "[" + string.Join(",", l) + "]";
+        }
+
+        private int CountCorrectColours()
+        {
+            return _secret.Intersect(_guess).Count();
         }
 
         // Public methods
@@ -59,13 +68,14 @@ namespace MastermindLibrary
             }
         }
 
-        public int CountCorrectColours()
-        {
-            return secret.Intersect(guess).Count();
-        }
         public int CountWellPlacedColours()
         {
-            return guess.Where(c => secret.IndexOf(c) == guess.IndexOf(c)).Count();
+            return _guess.Where(c => _secret.IndexOf(c) == _guess.IndexOf(c)).Count();
+        }
+
+        public int CountCorrectMisplacedColours()
+        {
+            return CountCorrectColours() - CountWellPlacedColours();
         }
         
     }

@@ -31,6 +31,9 @@ namespace MastermindGame.Tests
 
         [DataTestMethod]
         [DataRow("yellow,blue")]
+        [DataRow("yellow")]
+        [DataRow("[yellow, blue, [blue, green]")]
+        [DataRow("[yellow, blue], [blue, green")]
         public void Return_ErrorMessage_When_Guess_Format_Is_Invalid(string guess)
         {
             string result = _mastermind.SetGuess(guess);
@@ -53,24 +56,11 @@ namespace MastermindGame.Tests
         [DataRow("yellow, blue, GREEN   ","[yellow,blue,green]")]
         [DataRow("yellow, BluE,green","[yellow,blue,green]")]
         [DataRow("yellow","[yellow]")]
+        [DataRow("[yellow, blue], [blue, green]","")]
         public void Return_OkMessage_When_Guess_Is_Registered(string guess, string expectedResult)
         {
             string result = _mastermind.SetGuess(guess);
             Assert.AreEqual(result, $"Your guess is: {expectedResult}");
-        }
-
-        [DataTestMethod]
-        [DataRow("[yellow, blue, green]", "[green, red]", 1)]
-        [DataRow("[yellow, blue, green]", "[green]", 1)]
-        [DataRow("[yellow, blue, green]", "[red]", 0)]
-        [DataRow("[yellow, blue, green]", "[blue, yellow]", 2)]
-        [DataRow("[yellow, blue, green]", "[blue, green, grey, brown, white]", 2)]
-        public void Return_Correct_Colours(string secret, string guess, int expectedResult)
-        {
-            _mastermind.SetSecret(secret);
-            _mastermind.SetGuess(guess);
-            int result = _mastermind.CountCorrectColours();
-            Assert.AreEqual(result,expectedResult);
         }
 
         [DataTestMethod]
@@ -84,6 +74,21 @@ namespace MastermindGame.Tests
             _mastermind.SetSecret(secret);
             _mastermind.SetGuess(guess);
             int result = _mastermind.CountWellPlacedColours();
+            Assert.AreEqual(result, expectedResult);
+        }
+
+        [DataTestMethod]
+        [DataRow("[yellow, blue, green]", "[green, red]", 1)]
+        [DataRow("[yellow, blue, green]", "[yellow, green]", 1)]
+        [DataRow("[yellow, blue, green]", "[red]", 0)]
+        [DataRow("[yellow, blue, green]", "[blue, yellow]", 2)]
+        [DataRow("[yellow, blue, green]", "[yellow, blue, green, brown, white]", 0)]
+        [DataRow("[yellow, blue, green]", "[green, yellow, blue]", 3)]
+        public void Return_Correct_Misplaced_Colours(string secret, string guess, int expectedResult)
+        {
+            _mastermind.SetSecret(secret);
+            _mastermind.SetGuess(guess);
+            int result = _mastermind.CountCorrectMisplacedColours();
             Assert.AreEqual(result, expectedResult);
         }
     }
