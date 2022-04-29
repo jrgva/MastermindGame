@@ -1,7 +1,5 @@
-using MastermindLibrary;
+using MastermindGame.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MastermindGame.Tests
 {

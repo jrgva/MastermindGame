@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace MastermindLibrary
+namespace MastermindGame.Library
 {
     public class Mastermind
     {
@@ -70,7 +70,6 @@ namespace MastermindLibrary
             else
             {
                 Secret = newSecret;
-                //return "Your secret has been registered!";
                 return true;
             }
         }
@@ -84,7 +83,6 @@ namespace MastermindLibrary
             {
                 MatchCollection matches = Regex.Matches(newGuess.Replace(" ", ""), @"(?:\[(?:\w,?)+\],?)");
                 if (string.Join(',', matches.Select(m => m.Value.TrimEnd(',')).ToList()) != newGuess.Replace(" ", ""))
-                    //return "Guess format should be: [colour1, colour2, ...], [colour1, colour2, ...], [...]";
                     return false;
                 else
                 {
