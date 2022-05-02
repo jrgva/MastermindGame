@@ -10,6 +10,7 @@ namespace MastermindGame.App
             LetsPlay();
         }
 
+        // This method is the main console app. It gives instruction to the user and reads inputs. 
         private static void LetsPlay()
         {
             Mastermind mastermind = new Mastermind();
@@ -41,7 +42,7 @@ namespace MastermindGame.App
                 while (resultGuess != "Correct")
                 {
                     if (resultGuess == "Empty")
-                        ui.EmptyInput("Secret");
+                        ui.EmptyInput("Guess");
                     else if (resultGuess == "InvalidFormat")
                         ui.IncorrectGuessFormat();
                     ui.InsertSecret();

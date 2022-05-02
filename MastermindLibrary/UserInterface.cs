@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace MastermindGame.Library
 {
+    // This class has all the messages and interaction that the console gives to the user
     public class UserInterface
     {
         // Constants
@@ -38,7 +39,6 @@ namespace MastermindGame.Library
                                                                                                                         $"Your guess was: {guess}\n" +
                                                                                                                         $"Well placed colours: {wellPlaced}\n" +
                                                                                                                         $"Correct misplaced colours: {correctMisplaced}\n");
-
-        public void TryAgain() => Console.WriteLine("Try again!\n");
+        public void TryAgain() => Console.WriteLine("Let's try again!\n");
     }
 }

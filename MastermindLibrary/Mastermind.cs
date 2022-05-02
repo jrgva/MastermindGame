@@ -5,8 +5,10 @@ using System.Text.RegularExpressions;
 
 namespace MastermindGame.Library
 {
+    // This class has all the logic and data necesary for playing the game.
     public class Mastermind
     {
+        // Possible choices of colours for vs machine mode
         private List<string> availableColours = new List<string>()
         {
             "red",
@@ -35,7 +37,8 @@ namespace MastermindGame.Library
         }
 
         // Properties
-        // The public properties are always strings
+        // The public properties are always strings because it's the way user interacts with console
+        // Get and Set are functions that try to parse the input and convert it to lists
         public string Secret
         {
             get => ListToString(_secret);
@@ -62,6 +65,8 @@ namespace MastermindGame.Library
             }
         }
 
+        // Private methods
+        // Method used to generate a random secret in vs machine mode
         public void SetRandomSecret()
         {
             Random random = new Random();
@@ -72,10 +77,13 @@ namespace MastermindGame.Library
             }
         }
 
+        // Method used to represent the data as string
         private string ListToString(List<string> l) => "[" + string.Join(",", l) + "]";
 
+        // Method used to parse the data into a lists
         private List<string> StringToList(string s) => s.Replace("[", "").Replace("]", "").Split(',').Select(s => s.Trim().ToLower()).ToList();
 
+        // This method counts how many colours are correct in the guesses
         private int CountCorrectColours()
         {
             int count = 0;
@@ -87,9 +95,10 @@ namespace MastermindGame.Library
         }
 
         // Public methods
+        // This method validates the input and sets a new secret based on that input
         public bool SetSecret(string newSecret)
         {
-            if (String.IsNullOrEmpty(newSecret.Trim().Replace("[", "").Replace("]", "").Trim()))
+            if (string.IsNullOrEmpty(newSecret.Trim().Replace("[", "").Replace("]", "").Trim()))
                 return false;
             else
             {
@@ -98,9 +107,10 @@ namespace MastermindGame.Library
             }
         }
 
+        // This method validates the input and sets a new guess based on that input, a regex is used for validate de format. The regex separates each guess and compares a composition of guesses with the input of the user
         public string SetGuess(string newGuess)
         {
-            if (String.IsNullOrEmpty(newGuess.Trim().Replace("[", "").Replace("]", "").Trim()))
+            if (string.IsNullOrEmpty(newGuess.Trim().Replace("[", "").Replace("]", "").Trim()))
                 return "Empty";
             else
             {
@@ -115,6 +125,7 @@ namespace MastermindGame.Library
             }
         }
 
+        // This method counts how many colours are well placed. It compares the index in the secret with each the index in each guess
         public int CountWellPlacedColours()
         {
             int count = 0;
@@ -125,6 +136,7 @@ namespace MastermindGame.Library
             return count;
         }
 
+        // This method calculates how many misplaced colours exists. The difference between the correct and the well placed colours gives us that number
         public int CountCorrectMisplacedColours()
         {
             return CountCorrectColours() - CountWellPlacedColours();

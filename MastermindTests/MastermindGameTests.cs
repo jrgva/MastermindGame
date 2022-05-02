@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MastermindGame.Tests
 {
+    // This class has all the unit tests developed for Mastermind class
     [TestClass]
     public class MastermindGameTests
     {
